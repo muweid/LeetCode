@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        
+        if len(nums) <= 1:
+            return None
+        
+        num_dict = {}
+        
+        for ind, val in enumerate(nums):
+            if val not in num_dict.keys():
+                num_dict[val] = ind
+            if target - val == val and num_dict[val] == ind:
+                continue
+            elif target - val in num_dict.keys():
+                return(num_dict[target-val], ind)
