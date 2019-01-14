@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+
+class Solution:
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        
+        longest = 0
+        string_list = list(s)
+        char_list = []
+        
+        for i in range(len(s)):
+            current_char = string_list[i]
+            if current_char in char_list:
+                char_list = char_list[char_list.index(current_char)+1:len(char_list)]
+            char_list.append(current_char)
+            if len(char_list) > longest:
+                    longest = len(char_list)
+        return longest
