@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        
+        if numRows == 1:
+            return s
+        
+        numSecs = len(s) // (2 * numRows - 2) + 1
+        numCols = numSecs * (numRows-1)
+        
+        gen = [[None for i in range(numCols)] for j in range(numRows)]
+        
+        x_loc = y_loc = 0
+        
+        for i in range(len(s)):
+            gen[y_loc][x_loc] = s[i]
+            if y_loc == 0:
+                x_dir = 0
+                y_dir = 1
+            elif y_loc == numRows - 1:
+                x_dir = 1
+                y_dir = -1
+            x_loc += x_dir
+            y_loc += y_dir
+
+        res = ''
+
+        for i in gen:
+            res += ''.join([x for x in i if x is not None])
+    
+        return res
