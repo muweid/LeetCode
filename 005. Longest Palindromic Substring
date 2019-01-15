@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def Palindromehelper(self, s):
+        if len(s) == 1 or len(set(s)) == 1:
+            return True
+
+        if len(s)%2 == 0:
+            left  = int(len(s)/2 - 1)
+            right = int(len(s)/2)
+            for i in range(right):
+                if s[left - i] != s[right + i]:
+                    return(False)
+            return(True)
+        else:
+            middle = len(s)//2
+            for i in range(middle + 1):
+                if s[middle - i] != s[middle + i]:
+                    return(False)
+            return(True)
+        
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        
+        if len(s) < 2 or len(set(s)) == 1 or self.Palindromehelper(s) == True:
+            return(s)
+        
+        cur_len = start = end = 0
+                
+        for i in range(len(s)):
+            for j in range(min(i + 1, len(s) - i)):
+                odd = self.Palindromehelper(s[i-j:i+j+1])
+                even = self.Palindromehelper(s[i-j:i+j+2])
+                
+                if odd == False and even == False:
+                    break
+                
+                if odd:
+                    if 2 * j + 1 > cur_len:
+                        cur_len = 2 * j + 1 
+                        start = i - j
+                        end = i + j + 1
+                
+                if i+j+1 < len(s) and even:
+                    if  2 * j + 2 > cur_len:
+                        cur_len = 2 * j + 2
+                        start = i - j
+                        end = i + j + 2
+
+        return(s[start:end])
