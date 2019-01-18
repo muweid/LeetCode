@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        
+        y = 0
+        z = x
+        
+        
+        while z > 0:
+            z, last_digit = divmod(z,10)
+            y = 10 * y + last_digit
+        
+        return x == y
+            
