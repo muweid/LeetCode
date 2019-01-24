@@ -10,8 +10,51 @@ method 2 used dynamic programming. It is slower, but can be easily extended to f
 
 class Solution:
     def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        ans = []
         
-    
+        for i in range(len(nums)-3):
+            if nums[i] == nums[i-1] and i - 1 >= 0:
+                continue
+            for j in range(len(nums)-1,i-1,-1):
+                if nums[j] == nums[min(j+1,len(nums)-1)] and j != len(nums)-1:
+                    continue
+                
+                new_target = target - nums[i] - nums[j]
+                
+                left = i+1
+                right = j-1
+                    
+                while right > left:
+                    if nums[left] + nums[right] == new_target:
+                        temp = [nums[i], nums[left], nums[right],nums[j]]
+                        ans.append(temp)
+                        right-=1
+                        while nums[right] == nums[right+1] and right+1 < j and right - left > 1:
+                                right -= 1
+                        left+=1
+                        while nums[left] == nums[left-1] and left-1 > i and right - left > 1:
+                                left += 1
+                    else:
+                        if nums[left] + nums[right] > new_target:
+                            right -= 1
+                            while nums[right] == nums[right+1] and right+1 < j and right - left > 1:
+                                right -= 1
+                        else:
+                            left +=1
+                            while nums[left] == nums[left-1] and left-1 > i and right - left > 1:
+                                left += 1
+                    
+        return ans
+        
+
+# Method two using dynamic programming
+
     def fourSum2(self, nums, target):
         """
         :type nums: List[int]
