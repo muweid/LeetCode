@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        global target
+        target = ''
+        
+        global pair
+        pair = dict()
+        pair['('] = ')'
+        pair['['] = ']'
+        pair['{'] = '}'
+        
+        for i in s:
+            if i in pair.keys():
+                self.queue(i)
+            elif target == '':
+                return False
+            else:
+                is_paired = self.dequeue(i)
+                if is_paired:
+                    continue
+                else:
+                    return False
+        
+        if target == '':
+            return True
+        else:
+            return False
+        
+    def queue(self, char):
+        global target
+        target = target + char
+
+    def dequeue(self, char):
+        global target
+        target, end_char = target[:-1], target[-1]
+        if pair[end_char] == char:
+            return True
+        else:
+            return False
