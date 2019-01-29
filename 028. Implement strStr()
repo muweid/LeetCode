@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        
+        if needle == '':
+            return 0
+        
+        check = False
+        
+        for ind in range(len(haystack)):
+            if ind + len(needle) > len(haystack):
+                return(-1)
+            if haystack[ind] == needle[0]:
+                check = (haystack[ind:ind + len(needle)] == needle)
+            if check == True:
+                return ind
+        
+        return(-1)
+    
