@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def divide(self, dividend, divisor):
+        """
+        :type dividend: int
+        :type divisor: int
+        :rtype: int
+        """
+        
+        if dividend == -2147483648 and divisor == -1:
+            return(2147483647)
+        if dividend > 2147483647 or dividend < -2147483648:
+            return(2147483647)
+        if abs(dividend) < abs(divisor):
+            return 0
+        if divisor == -1 or divisor == 1:
+            return divisor * dividend
+        
+        if (dividend > 0 and divisor >0) or (dividend < 0 and divisor < 0):
+            negative = False
+        else:
+            negative = True
+        
+        dividend, divisor = abs(dividend), abs(divisor)
+        
+        divisor_power = [1]
+        
+        while True:
+            temp = divisor * divisor_power[-1]
+            if temp <= dividend:
+                divisor_power.append(temp)
+            else:
+                break
+        
+        divisor_power = divisor_power[::-1]
+        ans = 0
+        
+        print(divisor_power)
+        
+        for ind in range(len(divisor_power)):
+            print(ind, divisor_power[ind], dividend, ans)
+            if dividend < divisor_power[-2] or divisor_power[ind] == 1:
+                break
+            
+            elif divisor_power[ind] > dividend:
+                continue
+            
+            elif divisor_power[ind] == dividend:
+                ans += divisor_power[ind + 1]
+                break
+            
+            while divisor_power[ind] < dividend:
+                dividend -= divisor_power[ind]
+                ans += divisor_power[ind + 1]
+            
+        if negative:
+            return(-1 * ans)
+        else:
+            return(ans)
