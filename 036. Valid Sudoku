@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        ans = True
+        
+        # Check row
+        for i in board:
+            if self.check_repeat(i):
+                continue
+            else:
+                return False
+        
+        # swap row/column
+        for i in range(0,9):
+            for j in range(i,9):
+                board[i][j], board[j][i] = board[j][i], board[i][j]
+        
+        # check column(original)
+                # Check row
+        for i in board:
+            if self.check_repeat(i):
+                continue
+            else:
+                return False
+        
+        row_ind = col_ind = 0
+        
+        while row_ind < 9:
+            col_ind = 0
+            while col_ind < 9:
+                num_list = []
+                for i in range(row_ind,row_ind+3):
+                    for j in range(col_ind, col_ind+3):
+                        num_list.append(board[i][j])
+                print(num_list)
+                if self.check_repeat(num_list) == False:
+                    return False
+                col_ind +=3
+            row_ind +=3
+        
+        return True
+    
+    def check_repeat(self, num_list):
+        num=dict()
+        
+        for i in num_list:
+            if i not in '123456789':
+                continue
+            elif i in num.keys():
+                return False
+            else:
+                num[i] = 1                
+                
+        return True
