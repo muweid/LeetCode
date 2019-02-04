@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        
+        global ans
+        
+        candidates.sort()
+        
+        ans = []
+        
+        self.helper_func(candidates, target, [])
+        
+        return ans
+    
+    def helper_func(self, candidates, target, temp):
+        global ans
+        
+        if target == 0:
+            temp.sort()
+            if temp not in ans:
+                ans.append(temp)
+        
+        for ind in range(len(candidates)):
+            if candidates[ind] <= target:
+                temp_num = candidates.pop(ind)
+                self.helper_func(candidates, target - temp_num, temp + [temp_num])
+                candidates.insert(ind, temp_num)
+            else:
+                break
