@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        
+        ans = 1
+        
+        for i in range(n-1):
+            ans = self.helper_func(ans)
+        
+        return str(ans)
+    
+    def helper_func(self, ans):
+        res = ''
+        
+        ans = str(ans)
+        
+        temp_char = ans[0]
+        temp_count = 0
+        
+        for ind, val in enumerate(ans):
+            if temp_char == val and ind != len(ans) - 1:
+                temp_count += 1
+                continue
+            elif temp_char == val and ind == len(ans) - 1:
+                temp_count += 1
+                res = res + str(temp_count) + temp_char
+                return(int(res))
+            elif temp_char != val and ind == len(ans) - 1:
+                res = res + str(temp_count) + temp_char
+                res = res  + '1' + val
+                return(int(res))
+            else:
+                res = res + str(temp_count) + temp_char
+                temp_count = 1
+                temp_char = val
+                continue
+            
+            
+            
