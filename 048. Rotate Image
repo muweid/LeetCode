@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def rotate(self, matrix: 'List[List[int]]') -> 'None':
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        
+        n = len(matrix) - 1
+        
+        
+        for i in range((n + 1) // 2):
+            for j in range(0, n - 2*i):
+                matrix[i][i + j], matrix[i + j][n-i], matrix[n-i][n-i - j], matrix[n-i - j][i] = \
+                matrix[n-i - j][i], matrix[i][i + j], matrix[i + j][n-i], matrix[n-i][n-i - j]
+                
+        
