@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def multiply(self, num1, num2):
+        """
+        :type num1: str
+        :type num2: str
+        :rtype: str
+        """
+        
+        num_dict = dict()
+        
+        for i in '0123456789':
+            num_dict[i] = int(i)
+        
+        ans = 0
+        
+        for i in num1:
+            ans *= 10
+            temp = 0
+            
+            for j in num2:
+                temp *= 10
+                temp += self.func_helper(num_dict[i], num_dict[j])
+            
+            ans += temp
+        
+        return str(ans)
+    
+    def func_helper(self, val1, val2):
+        res  = 0
+        for i in range(val1):
+            res += val2
+        return res
