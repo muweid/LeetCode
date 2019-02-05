@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def permuteUnique(self, nums: 'List[int]') -> 'List[List[int]]':
+        global ans
+        ans = []
+        
+        global rep_check
+        rep_check = [[None]] * (len(nums) + 1)
+        
+        self.helper_func(nums, [], 1)
+        
+        return ans
+    
+    def helper_func(self, nums, cur_str, depth):
+        global ans
+        global rep_check
+        
+        
+        if nums == [] and cur_str not in ans:
+            ans.append(cur_str)
+            return
+
+        if cur_str in rep_check[depth]:
+            return
+        else:
+            rep_check[depth].append(cur_str)
+            
+        for i in range(len(nums)):
+            temp = nums.pop(i)
+            self.helper_func(nums, cur_str + [temp], depth + 1)
+            nums.insert(i, temp)
+        
