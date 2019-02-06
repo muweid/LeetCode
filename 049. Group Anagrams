@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def groupAnagrams(self, strs: 'List[str]') -> 'List[List[str]]':
+        
+        string = 'abcdefghijklmnopqrstuvwxyz'
+        string_dict = dict()
+        for ind, val in enumerate(string):
+            string_dict[val] = ind
+        
+        nums = 'abcdefghijklmnopqrstuvwxyz'
+        num_dict = dict()
+        for ind, val in enumerate(string):
+            num_dict[ind] = val
+        
+        ans_dict = dict()
+        
+        
+        for word in strs:
+            char_to_num = []
+            
+            for char in word:
+                char_to_num.append(string_dict[char])
+            char_to_num.sort()
+            
+            num_to_char = ''
+            
+            for num in char_to_num:
+                num_to_char += num_dict[num]
+            
+            temp = ''.join(str(x) for x in num_to_char)
+            
+            if temp not in ans_dict.keys():
+                ans_dict[temp] = []
+            ans_dict[temp].append(word)
+            
+        ans = []
+        
+        for ana in ans_dict.keys():
+            ans.append(ans_dict[ana])
+            
+        return ans
