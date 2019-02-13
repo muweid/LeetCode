@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def spiralOrder(self, matrix: 'List[List[int]]') -> 'List[int]':
+        
+        if matrix == []:
+            return matrix
+        
+        res = []
+        
+        width = len(matrix)
+        
+        while width >= 0:
+            width -= 2
+            temp = matrix.pop(0)
+            res.extend(temp)
+            
+            if matrix == [] or matrix[0] == []:
+                return res
+            
+            for i in range(width):
+                temp = matrix[i].pop()
+                res.append(temp)
+            
+            temp = matrix.pop()
+            temp = temp[::-1]
+            res.extend(temp)
+            
+            if matrix == [] or matrix[0] == []:
+                return res
+            
+            for i in range(width)[::-1]:
+                temp = matrix[i].pop(0)
+                res.append(temp)
+        
+        return res
