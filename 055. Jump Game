@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def canJump(self, nums: 'List[int]') -> 'bool':
+        
+        max_step = 0
+        
+        for i in range(len(nums)):
+            max_step = max(max_step, i + nums[i])
+            if i >= max_step and i != len(nums)-1:
+                return False
+        
+        return True
