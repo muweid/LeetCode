@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+# Definition for an interval.
+# class Interval:
+#     def __init__(self, s=0, e=0):
+#         self.start = s
+#         self.end = e
+
+class Solution:
+    def merge(self, intervals: 'List[Interval]') -> 'List[Interval]':
+        
+        ans = []
+        
+        while intervals != []:
+            temp = intervals.pop(0)
+            
+            drop_list = [0]
+            
+            while drop_list != []:
+                drop_list = []
+                
+                for i in range(len(intervals)):
+                    temp, drop = self.merge_helper(temp, intervals[i])
+                    
+                    if drop == True:
+                        drop_list.append(i)
+                
+                for j in drop_list[::-1]:
+                    intervals.pop(j)
+                
+            ans.append(temp)
+        
+        return ans
+                    
+    def merge_helper(self, s1, s2):
+        if s1.start > s2.end or s2.start > s1.end:
+            return (s1, False)
+        else:
+            s1.start = min(s1.start, s2.start)
+            s1.end = max(s1.end, s2.end)
+            return (s1, True)
