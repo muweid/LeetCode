@@ -1,0 +1,46 @@
+
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def generateMatrix(self, n: 'int') -> 'List[List[int]]':
+        
+        if n == 0:
+            return([])
+        
+        global ans
+        ans = []
+        
+        for i in range(n):
+            ans.append([None] * n)
+        
+        start_num = 1
+        row_num = 0
+        
+        while row_num <= n//2:
+            start_num, row_num = self.fill_spiral(start_num, row_num, n)
+            
+        return ans
+    
+    def fill_spiral(self, start_num, row_num, n):
+        global ans
+        
+        if n % 2 == 1 and row_num == n//2:
+            ans[row_num][row_num] = start_num
+            return(start_num+1, row_num+1)
+                
+        for i in range(row_num, n-row_num-1):
+            ans[row_num][i] = start_num
+            start_num += 1
+        for i in range(row_num, n-row_num-1):
+            ans[i][n-1-row_num] = start_num
+            start_num += 1
+        for i in range(n-1-row_num, row_num, -1):
+            ans[n-1-row_num][i] = start_num
+            start_num += 1
+        for i in range(n-1-row_num, row_num, -1):
+            ans[i][row_num] = start_num
+            start_num += 1
+        
+        return(start_num, row_num+1)
