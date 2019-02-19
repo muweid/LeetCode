@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: 'List[List[int]]') -> 'int':
+        matrix = []
+        
+        for i in range(len(obstacleGrid)):
+            matrix.append([None] * len(obstacleGrid[0]))
+        
+        meet_obstacle = False
+        
+        for i in range(len(obstacleGrid[0])):
+            if obstacleGrid[0][i] != 1 and meet_obstacle == False:
+                matrix[0][i] = 1
+                continue
+            else:
+                matrix[0][i] = 0
+                meet_obstacle = True
+        
+        meet_obstacle = False
+        
+        for i in range(len(obstacleGrid)):
+            if obstacleGrid[i][0] != 1 and meet_obstacle == False:
+                matrix[i][0] = 1
+                continue
+            else:
+                matrix[i][0] = 0
+                meet_obstacle = True
+        
+        for i in range(1, len(obstacleGrid)):
+            for j in range(1, len(obstacleGrid[0])):
+                if obstacleGrid[i][j] == 1:
+                    matrix[i][j] = 0
+                else:
+                    matrix[i][j] = 1
+        
+        for i in range(1, len(obstacleGrid)):
+            for j in range(1, len(obstacleGrid[0])):
+                if matrix[i][j] == 0:
+                    continue
+                else:
+                    matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
+                
+        
+        
+        return matrix[-1][-1]
