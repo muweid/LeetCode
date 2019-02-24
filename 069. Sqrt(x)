@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        start = 0
+        end = x
+        mid = x // 2
+        
+        while not ((mid + 1) * (mid + 1) >= x and mid * mid <= x):
+            if (mid + 1) * (mid + 1) < x:
+                start = mid
+                mid = (start + end)//2
+            elif mid * mid > x:
+                end = mid
+                mid = (start + end)//2
+        
+        # print(start, mid, end)
+        
+        if (mid + 1) * (mid + 1) == x:
+            return(mid+1)
+        else:
+            return(mid)
