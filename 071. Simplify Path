@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        
+        tail_slash = False
+        
+        while tail_slash == False:
+            if path[-1] == '/' and len(path) > 1:
+                path = path[0:-1]
+            else:
+                tail_slash = True
+        
+        multiple_slash = False
+        
+        while multiple_slash == False:
+            temp = path[:]
+            path = path.replace('//','/')
+            if path == temp:
+                multiple_slash = True
+        
+        slash_dot_slash = False
+        
+        while slash_dot_slash == False:
+            temp = path[:]
+            path = path.replace('/./','/')
+            if path == temp:
+                slash_dot_slash = True
+        
+        path_list = path.split('/')
+        
+        ind = 0
+        
+        while ind != len(path_list):
+            if ind == 0 and (path_list[0] == '' or path_list[0] == '.' or path_list[0] == '..'):
+                path_list.pop(0)
+                continue
+            elif path_list[ind] == '.':
+                path_list.pop(ind)
+                continue
+            elif path_list[ind] == '..':
+                ind -= 1
+                path_list.pop(ind)
+                path_list.pop(ind)
+            else:
+                ind += 1
+        
+        path = '/' + '/'.join(path_list)
+        
+        return  path
