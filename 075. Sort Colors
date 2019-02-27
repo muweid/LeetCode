@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        
+        white_ind = 0
+        blue_ind = 0
+        
+        for ind in range(len(nums)):
+            temp = nums.pop(ind)
+            
+            if temp == 2:
+                nums.insert(blue_ind, 2)
+                blue_ind += 1
+                continue
+            elif temp == 0:
+                nums.insert(0, 0)
+                white_ind += 1
+                blue_ind += 1
+            elif temp == 1:
+                nums.insert(white_ind, 1)
+                white_ind += 1
+                blue_ind += 1
+                
+                
+            
+            
+
+            
