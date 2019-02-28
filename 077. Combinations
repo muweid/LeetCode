@@ -24,11 +24,7 @@ class Solution:
             temp_list = self.helper_func(num_list, k-1, i)
             
             for temp in temp_list:
-                ans_cand = [num] + temp
-                ans_cand.sort()
-                
-                if ans_cand not in ans:
-                    ans.append(ans_cand)
+                ans.append([num] + temp)
             
             num_list.insert(i, num)
 
