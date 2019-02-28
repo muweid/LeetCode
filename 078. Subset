@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        return self.helper_func(nums, 0)
+    
+    def helper_func(self, num_list, ind):
+        if len(num_list) == 0:
+            return [[]]
+        
+        ans = [[]]
+        
+        for i in range(ind, len(num_list)):
+            num = num_list.pop(i)
+            
+            temp_list = self.helper_func(num_list, i)
+            
+            for temp in temp_list:
+                ans.append([num] + temp)
+            
+            num_list.insert(i, num)
+
+        return ans
