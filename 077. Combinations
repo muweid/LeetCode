@@ -1,0 +1,35 @@
+
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        num_list = []
+        
+        for i in range(1, n+1):
+            num_list.append(i)
+            
+        return self.helper_func(num_list, k, 0)
+    
+    def helper_func(self, num_list, k, ind):
+        if k == 0:
+            return [[]]
+        
+        ans = []
+        
+        for i in range(ind, len(num_list)):
+            num = num_list.pop(i)
+            
+            temp_list = self.helper_func(num_list, k-1, i)
+            
+            for temp in temp_list:
+                ans_cand = [num] + temp
+                ans_cand.sort()
+                
+                if ans_cand not in ans:
+                    ans.append(ans_cand)
+            
+            num_list.insert(i, num)
+
+        return ans
