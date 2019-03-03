@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        
+        if head == None or head.next == None:
+            return head
+        
+        pointer = head.next
+        chain = head
+        chain.next = None
+        temp = head.val
+        
+        while pointer != None:
+            if temp != pointer.val:
+                temp = pointer.val
+                chain.next = pointer
+                pointer = pointer.next
+                chain = chain.next
+                chain.next = None
+            
+            else:
+                pointer = pointer.next
