@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def grayCode(self, n: int) -> List[int]:
+        ind = 0
+        ans = [0]
+        
+        for i in range(0, n):
+            temp = ans[:]
+            add_by = 2 ** i
+            
+            for ind, val in enumerate(temp):
+                temp[ind] = val + add_by
+            
+            ans.extend(temp[::-1])
+        
+        return ans
