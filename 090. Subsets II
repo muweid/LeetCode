@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+        nums.sort()
+        ans.append(nums)
+        length = len(nums)
+        
+        while length != 0:
+            ans_copy = copy.deepcopy(ans)
+            
+            for ele in ans_copy:
+                if len(ele) > length:
+                    continue
+                
+                for ind in range(len(ele)):
+                    temp = ele.pop(ind)
+                    
+                    if ele not in ans:
+                        ele_copy = copy.deepcopy(ele)
+                        ans.append(ele_copy)
+                    
+                    ele.insert(ind, temp)
+            length -= 1
+        return ans
+
+    # Solution below used dynamic programming. It also works but a lot slower
+    def subsetsWithDup2(self, nums: List[int]) -> List[List[int]]:
+        if nums == []:
+            return [[]]
+        
+        ans = []
+        
+        for i in range(len(nums)):
+            temp_char = nums.pop(i)
+            
+            func_ret = self.subsetsWithDup(nums)
+            
+            for j in func_ret:
+                if j not in ans:
+                    ans.append(j)
+                
+                temp = j + [temp_char]
+                temp.sort()
+                
+                if temp not in ans:
+                    ans.append(temp)
+            
+            nums.insert(i, temp_char)
+        
+        return ans
