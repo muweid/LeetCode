@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        
+        ind = 0
+        
+        while nums2 != []:
+            if ind <= len(nums1) - 1:
+                
+                if nums1[ind] < nums2[0]:
+                    ind += 1
+                    continue
+
+                else:
+                    temp = nums2.pop(0)
+                    nums1.insert(ind, temp)
+                    nums1.pop()
+                    ind += 1
+                
+            else:
+                for i in nums2:
+                    loc = len(nums1) - len(nums2)
+                    temp = nums2.pop(0)
+                    nums1.insert(loc, temp)
+                    nums1.pop()
+        
+        
+                
