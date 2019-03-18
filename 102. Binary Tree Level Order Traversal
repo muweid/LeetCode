@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        if root == None:
+            return []
+        
+        global ans
+        ans = []
+        
+        self.helper_func([root])
+        
+        return ans
+    
+    def helper_func(self, node_list):
+        global ans
+        
+        node_val = []
+        next_node_list = []
+        
+        for node in node_list:
+            if node != None:
+                node_val.append(node.val)
+            if node.left != None:
+                next_node_list.append(node.left)
+            if node.right != None:
+                next_node_list.append(node.right)
+        
+        ans.append(node_val)
+        
+        if next_node_list != []:
+            self.helper_func(next_node_list)
+            
+            
+    
+    
