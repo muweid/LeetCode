@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if root == None or (root.left == None and root.right == None):
+            return True
+        elif root.left == None or root.right == None:
+            return False
+        
+        return self.helper_func(root.left, root.right)
+        
+    def helper_func(self, l, r):
+        if l == None and r == None:
+            return True
+        elif l == None or r == None:
+            return False
+        elif l.val != r.val:
+            return False
+        else:
+            return(self.helper_func(l.left, r.right) and self.helper_func(r.left, l.right))
+        
+        
