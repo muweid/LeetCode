@@ -1,0 +1,43 @@
+
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        if root == None:
+            return 0
+        
+        global depth
+        depth = 0
+        
+        self.helper_func([root], 1)
+        
+        return depth
+    
+    def helper_func(self, node_list, cur_depth):
+        global depth
+        
+        # print(cur_depth)
+        
+        if cur_depth > depth:
+            depth = cur_depth
+        
+        cur_node_list = []
+        
+        for node in node_list:
+            if node.left != None:
+                cur_node_list.append(node.left)
+            if node.right != None:
+                cur_node_list.append(node.right)
+                
+        if cur_node_list != []:
+            self.helper_func(cur_node_list, cur_depth+1)
+            
