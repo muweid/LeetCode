@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+
+#################################
+# Solution 1 is others solution #
+# Solution 2 is mine for now :) #
+#################################
+
+class Solution:
+
+    def buildTree(self, inorder, postorder):
+        if not inorder or not postorder:
+            return None
+        
+        root = TreeNode(postorder.pop())
+        inorderIndex = inorder.index(root.val)
+
+        root.right = self.buildTree(inorder[inorderIndex+1:], postorder)
+        root.left = self.buildTree(inorder[:inorderIndex], postorder)
+
+        return root
+
+    def buildTree2(self, inorder: List[int], postorder: List[int]) -> TreeNode:
+        start = TreeNode(0)
+        
+        start.left = self.helper_func(inorder, postorder)
+        
+        return start.left
+    
+    def helper_func(self, inorder, postorder):
+        if inorder == []:
+            return None
+        
+        ind = inorder.index(postorder.pop())
+        
+        root = TreeNode(inorder[ind])
+        
+        l_inorder = inorder[0:ind]
+        r_inorder = inorder[ind+1:]
+        
+        l_postorder = [x for x in postorder if x in l_inorder]
+        r_postorder = [x for x in postorder if x in r_inorder]
+        
+        root.left = self.helper_func(l_inorder, l_postorder)
+        root.right = self.helper_func(r_inorder, r_postorder)
+        
+        return root
