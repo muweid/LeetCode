@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        if root == None:
+            return True
+        
+        return bool(self.helper_func(root))
+    
+    def helper_func(self, node):
+        if node == None:
+            return True
+        
+        l, r = self.helper_func(node.left), self.helper_func(node.right)
+	    
+        if l and r and abs(l-r) < 2:
+            return max(l, r) + 1 
+        else:
+            False
