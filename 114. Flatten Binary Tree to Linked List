@@ -1,0 +1,38 @@
+    
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def flatten(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        
+        pointer = root
+        
+        branch_list = []
+        
+        while pointer != None or branch_list != []:
+            
+            if pointer.right != None:
+                branch_list.append(pointer.right)
+                pointer.right = None
+            
+            if pointer.left == None and branch_list != []:
+                pointer.left = branch_list.pop()
+                continue
+                
+            pointer.left, pointer.right = pointer.right, pointer.left
+            
+            pointer = pointer.right
+        
+        
+            
