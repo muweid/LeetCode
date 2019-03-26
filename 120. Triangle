@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        sum_list = triangle.pop()
+        
+        for line in triangle[::-1]:
+            cur_list = []
+            
+            for ind in range(len(line)):
+                cur_list.append(line[ind] + min(sum_list[ind], sum_list[ind+1]))
+                
+            sum_list = cur_list[:]
+        
+        return sum_list[0]
