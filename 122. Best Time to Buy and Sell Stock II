@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if len(prices) < 2:
+            return 0
+        
+        total = 0
+        bought = False
+        
+        for ind in range(len(prices) - 1):
+            if prices[ind] > prices[ind + 1] and bought == True:
+                total += prices[ind] - buy
+                buy = sell = 0
+                bought = False
+            
+            elif prices[ind] < prices[ind + 1] and bought == False:
+                buy = prices[ind]
+                bought = True
+        
+        if bought:
+            total += prices[-1] - buy
+            
+        return total
+        
