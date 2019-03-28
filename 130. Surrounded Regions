@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        if board == []:
+            return
+        
+        keep_O, prev = [], []
+        
+        keep_O.extend(self.check_outer(board))
+        
+        while keep_O != prev:
+            prev = keep_O.copy()
+            keep_O.extend(self.check_near(keep_O, board))
+            
+        for m in range(len(board)):
+            for n in range(len(board[0])):
+                if board[m][n] == 'O' and [m,n] not in keep_O:
+                    board[m][n] = 'X'
+        
+    
+    def check_outer(self, board):
+        O_list = []
+        
+        m = len(board)
+        n = len(board[0])
+        
+        for i in range(n):
+            if board[0][i] == 'O':
+                O_list.append([0,i])
+            if board[m-1][i] == 'O':
+                O_list.append([m-1, i])
+        for j in range(m):
+            if board[j][0] == 'O':
+                O_list.append([j,0])
+            if board[j][n-1] == 'O':
+                O_list.append([j, n-1])
+        
+        return O_list
+    
+    def check_near(self, keep_O, board):
+        ret_list = []
+        
+        for i, j in keep_O:
+            # check U, D, L, R
+            if i > 0 and board[i-1][j] == 'O' and [i - 1, j] not in keep_O + ret_list:
+                ret_list.append([i - 1, j])
+            if i < len(board) - 1 and board[i+1][j] == 'O' and [i + 1, j] not in keep_O + ret_list:
+                ret_list.append([i + 1, j])
+            
+            if j > 0 and board[i][j - 1] == 'O' and [i, j - 1] not in keep_O + ret_list:
+                print([i, j-1])
+                ret_list.append([i, j - 1])
+            if j < len(board[0]) - 1 and board[i][j + 1] == 'O' and [i, j + 1] not in keep_O + ret_list:
+                ret_list.append([i, j + 1])
+            
+        return ret_list
