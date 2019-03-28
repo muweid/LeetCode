@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        if endWord not in wordList:
+            return 0
+        
+        wordList = set(wordList)
+        step = 1
+        cur_Word = [(beginWord, 1)]
+        n = len(beginWord)
+        
+        while cur_Word:
+            word, step = cur_Word.pop(0)
+            
+            for i in range(n):
+                for j in 'abcdefghijklmnopqrstuvwxyz':
+                    temp = word[:i] + j + word[i+1:]
+
+                    if temp == endWord:
+                        return(step+1)
+
+                    if temp in wordList:
+                        cur_Word.append((temp, step + 1))
+                        wordList.remove(temp)
+        
+        return 0
