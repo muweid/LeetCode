@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        ind, total_length = 0, 0
+        
+        while total_length <= len(gas):
+            found = True
+            remaining = gas[ind]
+            
+            for i in range(len(gas)):
+                remaining -= cost[ind]
+                
+                ind = (ind+1)%len(gas)
+                total_length += 1
+                
+
+                if remaining < 0:
+                    found = False
+                    break
+                
+                remaining += gas[ind]
+
+            if found:
+                return ind
+            
+        
+        return -1
+            
+            
