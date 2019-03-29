@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        if len(s) == 0:
+            return []
+        
+        ans = self.helper_func(s)
+        
+        if [] in ans:
+            ans.remove([])
+        
+        return ans
+    
+    def helper_func(self, s):
+        if len(s) == 1:
+            return [[s]]
+        
+        pal_list_comb = [[]]
+        
+        for i in range(1, len(s)):
+            first_half = s[:i]
+            second_half = s[i:]
+            
+            if self.check_pal(first_half):
+                pal_list = self.helper_func(second_half)
+                
+                for pal in pal_list:
+                    if pal != []:
+                        pal.insert(0, first_half)                
+                        pal_list_comb.append(pal)
+            
+        if self.check_pal(s):
+            pal_list_comb.append([s])
+        
+        return pal_list_comb
+    
+    def check_pal(self, s):
+        s = list(s)
+        
+        while len(s) > 1:
+            if s.pop(0) != s.pop():
+                return False
+        
+        return True
