@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        nums.sort()
+        ind = 0
+        
+        while True:
+            if ind == len(nums) - 1:
+                return nums[ind]
+            
+            if nums[ind] != nums[ind+1]:
+                return nums[ind]
+            else:
+                ind +=3
