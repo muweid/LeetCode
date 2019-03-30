@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        
+        while len(nums) != 0:
+            temp = nums.pop()
+            if temp in nums:
+                nums.remove(temp)
+            else:
+                return temp
+        
+        return temp
