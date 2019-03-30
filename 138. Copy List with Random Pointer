@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, next, random):
+        self.val = val
+        self.next = next
+        self.random = random
+"""
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        ans = Node(0, None, None)
+        
+        p1 = head
+        p2 = ans
+        
+        ori_list = []
+        copy_list = []
+        
+        while p1 != None:
+            temp = Node(p1.val, None, None)
+            p2.next = temp
+            ori_list.append(p1)
+            copy_list.append(temp)
+            p1 = p1.next
+            p2 = p2.next
+        
+        p1 = head
+        p2 = ans.next
+        
+        while p1 != None:
+            if p1.random != None:
+                ind = ori_list.index(p1.random)
+                p2.random = copy_list[ind]
+            p1 = p1.next
+            p2 = p2.next
+            
+        return ans.next
