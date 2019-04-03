@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        
+        stack = [root]
+        ans = []
+        
+        while stack:
+            temp = stack.pop()
+            while temp:
+                ans.append(temp.val)
+                if temp.right:
+                    stack.append(temp.right)
+                temp = temp.left
+        
+        return ans
