@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        zeros = []
+        for ind in range(len(nums)):
+            if nums[ind] == 0:
+                zeros.append(ind + 1)
+        
+        non_zero_nums = []
+        start = 0
+        
+        for end in zeros:
+            temp = nums[start:end-1]
+            start = end
+            non_zero_nums.append(temp)
+        
+        non_zero_nums.append(nums[start:])
+        
+        ans = max(nums)
+        
+        for num in non_zero_nums:
+            if len(num) > 0:
+                ans = max(ans, self.max_prod(num))
+        
+        return ans
+    
+    def max_prod(self, num):
+        ans = num[0]
+        temp = num[0]
+        for val in num[1:]:
+            temp *= val
+            ans = max(temp, ans)
+        
+        temp = num[-1]
+        
+        for val in num[-2::-1]:
+            temp *= val
+            ans = max(temp, ans)
+        
+        return ans
+            
+            
