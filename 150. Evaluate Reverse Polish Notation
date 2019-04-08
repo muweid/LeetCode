@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = [int(tokens.pop(0))]
+        
+        for temp in tokens:
+            if len(temp) >= 2 or temp in '1234567890':
+                stack.append(int(temp))
+            else:
+                v2 = stack.pop()
+                v1 = stack.pop()
+                
+                if temp == '+':
+                    stack.append(v1 + v2)
+                elif temp == '-':
+                    stack.append(v1 - v2)
+                elif temp == '*':
+                    stack.append(v1 * v2)
+                else:
+                    stack.append(int(v1/v2))
+                    
+                
+        return stack[0]
+    
+
+        
