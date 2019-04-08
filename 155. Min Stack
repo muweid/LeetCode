@@ -1,0 +1,43 @@
+    
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class MinStack:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.stack = []
+        self.min = None
+        
+
+    def push(self, x: int) -> None:
+        # if self.
+        if self.min == None or x < self.min:
+            self.min = x
+        self.stack.append(x)
+
+    def pop(self) -> None:
+        lst_ele = self.stack.pop()
+        if self.min == lst_ele:
+            if not self.stack:
+                self.min = None
+            else:
+                self.min = min(self.stack)
+        return lst_ele
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.min
+
+
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(x)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.getMin()
