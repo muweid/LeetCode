@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        slist = s.split(' ')
+        slist = [x for x in slist if x != '']
+        return " ".join(slist[::-1]).strip()
