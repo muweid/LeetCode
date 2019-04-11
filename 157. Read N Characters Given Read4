@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+# The read4 API is already defined for you.
+# @param buf, a list of characters
+# @return an integer
+# def read4(buf):
+
+class Solution(object):
+    def read(self, buf, n):
+        """
+        :type buf: Destination buffer (List[str])
+        :type n: Maximum number of characters to read (int)
+        :rtype: The number of characters read (int)
+        """
+        
+        length = 0
+
+        temp = [None] * 4
+        end = False
+        
+        while length < n and end == False:
+            read_res = read4(temp)
+            
+            if read_res < 4:
+                end = True
+
+            for i in range(read_res):
+                buf[length] = temp[i]
+                length += 1
+                if length==n:
+                    break
+
+        return length
