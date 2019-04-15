@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+
+class Solution(object):
+    # @param root, a tree node
+    # @return root of the upside down tree
+    def upsideDownBinaryTree(self, root):
+        p, parent, parent_right = root, None, None
+ 
+        while p:
+            left = p.left
+            p.left = parent_right
+            parent_right = p.right
+            p.right = parent
+            parent = p
+            p = left
+ 
+        return parent　　
