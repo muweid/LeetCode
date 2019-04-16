@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def compareVersion(self, version1: str, version2: str) -> int:
+        v1 = version1.split('.')
+        v2 = version2.split('.')
+        
+        v1 = [x.lstrip('0') for x in v1]
+        v2 = [x.lstrip('0') for x in v2]
+        
+        for i, j in zip(v1, v2):
+            if i == j:
+                continue
+            elif i == '':
+                return -1
+            elif j == '':
+                return 1
+            if int(j) > int(i):
+                return -1
+            elif int(i) > int(j):
+                return 1
+        
+        if len(v1) == len(v2):
+            return 0
+            
+        min_len = min(len(v1), len(v2))
+        
+        v1 = v1[min_len:]
+        v2 = v2[min_len:]
+        
+        if v2 == []:
+            for i in v1:
+                if i != '':
+                    return 1
+            return 0
+        
+        else:
+            for j in v2:
+                if j != '':
+                    return -1
+            return 0
+        
+                
+            
