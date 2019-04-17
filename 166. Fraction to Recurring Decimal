@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+        div, mod = divmod(numerator,denominator)
+        if mod == 0:
+            return str(div)
+        
+        if div < 0:
+            div += 1
+            mod = denominator - mod
+        
+        ans_p1 = str(div) + '.'
+        
+        if div == 0 and numerator * denominator < 0:
+            ans_p1 = '-' + ans_p1
+        
+        visited = dict()
+        index = 0
+        visited[str(mod)] = index
+        
+        ans_p2 = ''
+        
+        while True:
+            index += 1
+            mod *= 10
+            
+            if mod == 0:
+                return ans_p1 + ans_p2
+                
+            div, mod = divmod(mod, denominator)
+
+            ans_p2 += str(div)
+            
+            if str(mod) in visited:
+                end = visited[str(mod)]
+                break
+            elif mod != 0:
+                visited[str(mod)] = index
+        
+        return ans_p1 + ans_p2[:end] + '(' + ans_p2[end:].rstrip('0') + ')'
