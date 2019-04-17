@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def titleToNumber(self, s: str) -> int:
+        num_dict = dict()
+        
+        for i, j in zip(range(1, 27), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
+            num_dict[j] = i
+        
+        ans = 0
+        order = 1
+        
+        for i in s[::-1]:
+            ans = order * num_dict[i] + ans
+            order *= 26
+        
+        return ans
