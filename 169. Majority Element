@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+
+__author__ = 'Wei Mu'
+
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        num_dict = dict()
+        
+        max_num = 0
+        count = 0
+        
+        for i in nums:
+            if i in num_dict.keys():
+                num_dict[i] = num_dict[i] + 1
+            else:
+                num_dict[i] = 1
+            
+            if num_dict[i] > count:
+                count = num_dict[i]
+                max_num = i
+            
+            if count > len(nums) // 2:
+                break
+            
+        return max_num
